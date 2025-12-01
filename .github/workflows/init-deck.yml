@@ -1,0 +1,139 @@
+name: Initialize Pitch Deck
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'config.json'
+  workflow_dispatch:
+    inputs:
+      company_name:
+        description: 'Company Name'
+        required: true
+        default: 'My Startup'
+      tagline:
+        description: 'Company Tagline'
+        required: true
+        default: 'Innovation at scale'
+      presenter:
+        description: 'Presenter Name'
+        required: true
+        default: 'John Doe'
+      industry:
+        description: 'Industry'
+        required: false
+        default: 'Technology'
+      website:
+        description: 'Company Website'
+        required: false
+        default: 'https://example.com'
+
+jobs:
+  generate-deck:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Generate customized pitch deck
+        run: |
+          # Get input values or defaults
+          COMPANY="${{ github.event.inputs.company_name || 'Default Company' }}"
+          TAGLINE="${{ github.event.inputs.tagline || 'Default Tagline' }}"
+          PRESENTER="${{ github.event.inputs.presenter || 'Default Presenter' }}"
+          INDUSTRY="${{ github.event.inputs.industry || 'Technology' }}"
+          WEBSITE="${{ github.event.inputs.website || 'https://example.com' }}"
+          DATE=$(date +"%B %Y")
+          
+          echo "🎯 Generating pitch deck for: $COMPANY"
+          
+          # Replace in HTML files
+          find slides -type f -name "*.html" -exec sed -i \
+            -e "s|{{COMPANY_NAME}}|$COMPANY|g" \
+            -e "s|{{TAGLINE}}|$TAGLINE|g" \
+            -e "s|{{PRESENTER}}|$PRESENTER|g" \
+            -e "s|{{INDUSTRY}}|$INDUSTRY|g" \
+            -e "s|{{WEBSITE}}|$WEBSITE|g" \
+            -e "s|{{DATE}}|$DATE|g" {} \;
+          
+          # Update config.json
+          cat > config.json << EOF
+          {
+            "company": "$COMPANY",
+            "tagline": "$TAGLINE",
+            "presenter": "$PRESENTER",
+            "industry": "$INDUSTRY",
+            "website": "$WEBSITE",
+            "generated_date": "$DATE",
+            "version": "1.0.0",
+            "theme": "modern",
+            "slides": [
+              "title",
+              "problem",
+              "solution",
+              "market",
+              "business-model",
+              "traction",
+              "team",
+              "financials",
+              "ask"
+            ]
+          }
+          EOF
+          
+          # Update README
+          cat > README.md << EOF
+          # $COMPANY - Pitch Deck
+          
+          **$TAGLINE**
+          
+          Presented by: $PRESENTER
+          Generated: $DATE
+          
+          ## 📊 About This Deck
+          
+          This pitch deck was automatically generated using our GitHub Actions template.
+          
+          ## 🎯 Slides Included
+          
+          1. Title Slide
+          2. Problem Statement
+          3. Our Solution
+          4. Market Opportunity
+          5. Business Model
+          6. Traction & Milestones
+          7. Team
+          8. Financial Projections
+          9. The Ask
+          
+          ## 🚀 View the Deck
+          
+          Open \`slides/index.html\` in your browser to view the presentation.
+          
+          ## 📝 Customization
+          
+          Edit the HTML files in the \`slides/\` directory to customize content.
+          
+          ---
+          
+          Generated with ❤️ by Pitch Deck Automation
+          EOF
+          
+          echo "✅ Deck generation complete!"
+      
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🚀 Initialize pitch deck for ${{ github.event.inputs.company_name }}"
+          commit_user_name: "Pitch Deck Bot"
+          commit_user_email: "bot@pitchdecks.dev"
