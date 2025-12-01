@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{COMPANY_NAME}} - Pitch Deck</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+    <!-- Title Slide -->
+    <section class="slide title-slide">
+        <h1>{{COMPANY_NAME}}</h1>
+        <p class="tagline">{{TAGLINE}}</p>
+        <p class="presenter">Presented by {{PRESENTER}}</p>
+        <p class="date">{{DATE}}</p>
+    </section>
+
+    <!-- Problem Slide -->
+    <section class="slide problem-slide">
+        <h2>💔 The Problem</h2>
+        <ul>
+            <li>Describe the pain point your customers face</li>
+            <li>Quantify the problem with data</li>
+            <li>Show why existing solutions fall short</li>
+        </ul>
+    </section>
+
+    <!-- Solution Slide -->
+    <section class="slide solution-slide">
+        <h2>🚀 Our Solution</h2>
+        <p>Explain how your product/service solves the problem.</p>
+        <ul>
+            <li>Key feature 1</li>
+            <li>Key feature 2</li>
+            <li>Key feature 3</li>
+        </ul>
+    </section>
+
+    <!-- Market Slide -->
+    <section class="slide market-slide">
+        <h2>🌎 Market Opportunity</h2>
+        <p><strong>Total Addressable Market (TAM):</strong> $XXX Billion</p>
+        <p><strong>Serviceable Market (SAM):</strong> $XXX Million</p>
+        <p><strong>Target Market (SOM):</strong> $XXX Million</p>
+    </section>
+
+    <!-- Business Model Slide -->
+    <section class="slide business-model-slide">
+        <h2>💰 Business Model</h2>
+        <p>How we make money:</p>
+        <ul>
+            <li>Revenue stream 1</li>
+            <li>Revenue stream 2</li>
+            <li>Pricing strategy</li>
+        </ul>
+    </section>
+
+    <!-- Traction Slide -->
+    <section class="slide traction-slide">
+        <h2>📈 Traction & Milestones</h2>
+        <ul>
+            <li>XXX customers/users</li>
+            <li>$XXX in revenue</li>
+            <li>Key partnerships</li>
+            <li>Notable achievements</li>
+        </ul>
+    </section>
+
+    <!-- Team Slide -->
+    <section class="slide team-slide">
+        <h2>👥 Our Team</h2>
+        <div class="team-member">
+            <h3>Founder Name - CEO</h3>
+            <p>Brief background and expertise</p>
+        </div>
+        <div class="team-member">
+            <h3>Co-founder Name - CTO</h3>
+            <p>Brief background and expertise</p>
+        </div>
+    </section>
+
+    <!-- Financials Slide -->
+    <section class="slide financials-slide">
+        <h2>📊 Financial Projections</h2>
+        <table>
+            <tr>
+                <th>Year</th>
+                <th>Revenue</th>
+                <th>Users</th>
+            </tr>
+            <tr>
+                <td>Year 1</td>
+                <td>$XXX</td>
+                <td>XXX</td>
+            </tr>
+            <tr>
+                <td>Year 2</td>
+                <td>$XXX</td>
+                <td>XXX</td>
+            </tr>
+            <tr>
+                <td>Year 3</td>
+                <td>$XXX</td>
+                <td>XXX</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- The Ask Slide -->
+    <section class="slide ask-slide">
+        <h2>💼 The Ask</h2>
+        <p><strong>Seeking:</strong> $XXX,XXX in funding</p>
+        <p><strong>Use of Funds:</strong></p>
+        <ul>
+            <li>Product development: XX%</li>
+            <li>Marketing: XX%</li>
+            <li>Team expansion: XX%</li>
+            <li>Operations: XX%</li>
+        </ul>
+        <p class="contact"><strong>Contact:</strong> {{WEBSITE}}</p>
+    </section>
+
+    <script>
+        // Simple slide navigation
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.style.display = 'none');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].style.display = 'flex';
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') showSlide(currentSlide + 1);
+            if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+        });
+        
+        showSlide(0);
+    </script>
+</body>
+</html>
