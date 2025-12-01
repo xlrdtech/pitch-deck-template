@@ -6,6 +6,8 @@ on:
     paths:
       - 'config.json'
   workflow_dispatch:
+    repository_dispatch:
+        types: [generate-deck]
     inputs:
       company_name:
         description: 'Company Name'
@@ -48,18 +50,13 @@ jobs:
       - name: Generate customized pitch deck
         run: |
           # Get input values or defaults
-          COMPANY="${{ github.event.inputs.company_name || 'Default Company' }}"
-          TAGLINE="${{ github.event.inputs.tagline || 'Default Tagline' }}"
-          PRESENTER="${{ github.event.inputs.presenter || 'Default Presenter' }}"
-          INDUSTRY="${{ github.event.inputs.industry || 'Technology' }}"
-          WEBSITE="${{ github.event.inputs.website || 'https://example.com' }}"
-          DATE=$(date +"%B %Y")
+          COMPANY="${{ github.event.inputs.company_name || github.event.client_payload.company_name || 'Default Company' }}"          TAGLINE="${{ github.event.inputs.tagline || 'Default Tagline' }}"
+          TAGLINE="${{ github.event.inputs.tagline || github.event.client_payload.tagline || 'Default Tagline' }}"          INDUSTRY="${{ github.event.inputs.industry || 'Technology' }}"
+          PRESENTER="${{ github.event.inputs.presenter || github.event.client_payload.presenter || 'Default Presenter' }}"          DATE=$(date +"%B %Y")
           
-          echo "🎯 Generating pitch deck for: $COMPANY"
-          
+          INDUSTRY="${{ github.event.inputs.industry || github.event.client_payload.industry || 'Technology' }}"          
           # Replace in HTML files
-          find slides -type f -name "*.html" -exec sed -i \
-            -e "s|{{COMPANY_NAME}}|$COMPANY|g" \
+          WEBSITE="${{ github.event.inputs.website || github.event.client_payload.website || 'https://example.com' }}"            -e "s|{{COMPANY_NAME}}|$COMPANY|g" \
             -e "s|{{TAGLINE}}|$TAGLINE|g" \
             -e "s|{{PRESENTER}}|$PRESENTER|g" \
             -e "s|{{INDUSTRY}}|$INDUSTRY|g" \
