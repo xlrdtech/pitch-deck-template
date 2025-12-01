@@ -1,8 +1,8 @@
-# Default Company - Pitch Deck
+# My Startup - Pitch Deck
 
-**Default Tagline**
+**Innovation at scale**
 
-Presented by: Default Presenter
+Presented by: John Doe
 Generated: December 2025
 
 ## 📊 About This Deck
