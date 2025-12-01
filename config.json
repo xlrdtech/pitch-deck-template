@@ -1,10 +1,10 @@
 {
-  "company": "{{COMPANY_NAME}}",
-  "tagline": "{{TAGLINE}}",
-  "presenter": "{{PRESENTER}}",
-  "industry": "{{INDUSTRY}}",
-  "website": "{{WEBSITE}}",
-  "generated_date": "{{DATE}}",
+  "company": "Default Company",
+  "tagline": "Default Tagline",
+  "presenter": "Default Presenter",
+  "industry": "Technology",
+  "website": "https://example.com",
+  "generated_date": "December 2025",
   "version": "1.0.0",
   "theme": "modern",
   "slides": [
