@@ -1,0 +1,21 @@
+{
+  "company": "{{COMPANY_NAME}}",
+  "tagline": "{{TAGLINE}}",
+  "presenter": "{{PRESENTER}}",
+  "industry": "{{INDUSTRY}}",
+  "website": "{{WEBSITE}}",
+  "generated_date": "{{DATE}}",
+  "version": "1.0.0",
+  "theme": "modern",
+  "slides": [
+    "title",
+    "problem",
+    "solution",
+    "market",
+    "business-model",
+    "traction",
+    "team",
+    "financials",
+    "ask"
+  ]
+}
